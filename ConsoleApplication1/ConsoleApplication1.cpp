@@ -72,7 +72,7 @@ figure Bp; figure Bn; figure Bg;
 figure C;
 figure D;
 useState figureA;
-useState figureBp; useState figureBn; useState figureBGlobal;
+useState figureBp; useState figureBn; useState figureBGlobal; 
 useState figureC;
 useState figureD;
 int checkFigureB = 0;
@@ -272,11 +272,19 @@ void EnterFiguresFunc() {
                 string secondChoose;
                 cout << "Do you want to change figure options?" << " " << "(y/n)" << endl;
                 cout << "Your choose: "; cin >> secondChoose;
-                checkFigureB++;
                 if (secondChoose == "y" || secondChoose == "Y") {
+                    checkFigureB++;
                     figureBGlobal.state = true;
+                    if (sizeof(figureBn.optionsArray)/sizeof(figureBn.optionsArray[0]) > sizeof(figureBp.optionsArray) / sizeof(figureBp.optionsArray[0]) || sizeof(figureBn.optionsArray) / sizeof(figureBn.optionsArray[0]) == sizeof(figureBp.optionsArray) / sizeof(figureBp.optionsArray[0]) && checkFigureB > 1) {
+                        for (int i = 0; i <= figureBGlobal.end; i++)
+                        {
+                            figureBp.optionsArray[i] = figureBn.optionsArray[i];
+                        }
+                        figureBn.optionsArray[3] = {};
+                    }
                     FigureB();
                     figureBGlobal.menu += " < changed from " + figureBp.figureType + " with cords: " + printArray(figureBGlobal.end, figureBp.optionsArray) + "to " + figureBn.figureType + " with cords: " + printArray(figureBGlobal.end, figureBn.optionsArray) + ">";
+                    figureBp.figureType = figureBn.figureType;
                 }
             }
             break;
